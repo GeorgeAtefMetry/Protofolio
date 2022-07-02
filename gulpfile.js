@@ -64,14 +64,9 @@ function serve (cb){
     browserSync.reload()
     done()
 }
+watch(["project/css/**/*.css","project/sass/**/*.scss"], series(sassMinify,reloadTask));
 
-//watch task
-function watchTask() {
-    watch('project/*.html',series(minifyHTML, reloadTask))
-    watch('project/js/**/*.js',series(jsMinify, reloadTask))
-    watch(["project/css/**/*.css","project/sass/**/*.scss"], series(sassMinify,reloadTask));
-}
-exports.default = series( parallel(imgMinify, jsMinify, sassMinify, minifyHTML), serve,watchTask)
+exports.default = series( parallel(imgMinify, jsMinify, sassMinify, minifyHTML), serve)
 
 
 
